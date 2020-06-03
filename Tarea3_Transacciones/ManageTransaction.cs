@@ -28,8 +28,10 @@ namespace Tarea3_Transacciones
 		}
 		public void Add()
 		{
+			Console.Clear();
 			try
 			{
+				Console.ForegroundColor = ConsoleColor.Cyan;
 				Transaccion transaccion = new Transaccion();
 				transaccion.No_trans = generadorId.GetIdRnd();
 				Console.WriteLine("Transaccion #: {0}", transaccion.No_trans);
@@ -76,7 +78,6 @@ namespace Tarea3_Transacciones
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("Ha ocurrido un error: {0}", ex.Message);
 				Console.ReadKey();
-				throw;
 			}
 			
 		}
@@ -141,6 +142,40 @@ namespace Tarea3_Transacciones
 						MenuPrincipal.ShowMenu();
 					}
 				}
+				else
+				{
+					try
+					{
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						Console.WriteLine("Numero de transaccion invalido");
+						Console.ForegroundColor = ConsoleColor.Cyan;
+						Console.Write("Realizar otra busqueda? 1-Si 2-No: ");
+						int opcion = Convert.ToInt32(Console.ReadLine());
+						switch (opcion)
+						{
+							case 1:
+								Edit();
+								break;
+							case 2:
+								MenuPrincipal.ShowMenu();
+								break;
+							default:
+								Console.ForegroundColor = ConsoleColor.Red;
+								Console.WriteLine("Error! entrada invalida");
+								Console.ReadKey();
+								MenuPrincipal.ShowMenu();
+								break;
+						}
+					}
+					catch (Exception)
+					{
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.WriteLine("Error! entrada invalida");
+						Console.ReadKey();
+						MenuPrincipal.ShowMenu();
+					}
+					
+				}
 
 			}
 			catch (Exception)
@@ -156,7 +191,82 @@ namespace Tarea3_Transacciones
 		}
 		public void Show()
 		{
+			if (tranAprobada.Count > 0)
+			{
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.WriteLine("**Transacciones Aprobadas**");
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.WriteLine("|Trs # | Nombre | Monto");
+				Console.WriteLine("-----------------------------------------");
+				foreach (var item in tranAprobada)
+				{
+					Console.WriteLine("{0}    {1}    {3}", item.No_trans, item.Nombre, item.Monto);
+				}
+				Console.WriteLine("*******************************************");
+			}
+			else
+			{
+				Console.WriteLine("0 transacciones");
+				Console.WriteLine("*******************************************");
+			}
 
+			if (tranRechazada.Count > 0)
+			{
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.WriteLine("**Transacciones Rechazadas**");
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.WriteLine("|Trs # | Nombre | Monto");
+				Console.WriteLine("-----------------------------------------");
+				foreach (var item in tranRechazada)
+				{
+					Console.WriteLine("{0}    {1}    {3}", item.No_trans, item.Nombre, item.Monto);
+				}
+				Console.WriteLine("*******************************************");
+			}
+			else
+			{
+				Console.WriteLine("0 transacciones");
+				Console.WriteLine("*******************************************");
+			}
+
+			if (tranCancelada.Count > 0)
+			{
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.WriteLine("**Transacciones Canceladas**");
+				Console.WriteLine("|Trs # | Nombre | Monto");
+				Console.WriteLine("-----------------------------------------");
+				foreach (var item in tranCancelada)
+				{
+					Console.WriteLine("{0}    {1}    {3}", item.No_trans, item.Nombre, item.Monto);
+				}
+				Console.WriteLine("*******************************************");
+			}
+			else
+			{
+				Console.WriteLine("0 transacciones");
+				Console.WriteLine("*******************************************");
+			}
+
+			if (tranEliminada.Count > 0)
+			{
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.WriteLine("**Transacciones Eliminadas**");
+				Console.WriteLine("|Trs # | Nombre | Monto");
+				Console.WriteLine("-----------------------------------------");
+				foreach (var item in tranEliminada)
+				{
+					Console.WriteLine("{0}    {1}    {3}", item.No_trans, item.Nombre, item.Monto);
+				}
+				Console.WriteLine("*******************************************");
+			}
+			else
+			{
+				Console.WriteLine("0 transacciones");
+				Console.WriteLine("*******************************************");
+			}
+
+
+			Console.ReadKey();
 		}
 
 		public void Delete()
