@@ -10,6 +10,7 @@ namespace Tarea3_Transacciones
 		public static void ShowMenu()
 		{
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.WriteLine("1 - Add Transaction \n2 - Edit Transaction \n3 - Show Transaction \n4 - Delete Transaction \n5 - Salir");
 			int opcion = Convert.ToInt32(Console.ReadLine());
 			switch (opcion)
